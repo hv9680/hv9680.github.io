@@ -1151,12 +1151,50 @@ function closeSyncModal() { document.getElementById('syncModal').classList.remov
 
 function ghApi(path, method, body) {
   const url = `https://api.github.com/repos/${syncConfig.user}/${syncConfig.repo}/contents/${path}`;
-  const headers = { 'Authorization': `token ${syncConfig.token}`, 'Accept': 'application/vnd.github+json' };
+  const headers = { 'Authorization': `Bearer ${syncConfig.token}`, 'Accept': 'application/vnd.github+json' };
   const opts = { method, headers };
   if (body) {
     opts.body = JSON.stringify(body);
     headers['Content-Type'] = 'application/json';
   }
+  return fetch(url, opts).then(r => {
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error('GitHub API: ' + r.status);
+    return r.json();
+  });
+}
+
+function pushToCloud() {
+  if (!syncConfig) { toast('请先保存设置'); return; }
+  const st = document.getElementById('syncStatus');
+  if (st) st.textContent = '正在上传...';
+  const data = { records, categories, members, syncDate: new Date().toISOString() };
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+  const msg = '记账数据同步 ' + new Date().toLocaleString('zh-CN');
+  function doPush(retry) {
+    return ghApi('data/accounting.json', 'GET').then(existing => {
+      const body = { message: msg, content };
+      if (existing && existing.sha) body.sha = existing.sha;
+      return ghApi('data/accounting.json', 'PUT', body);
+    }).catch(e => {
+      if (e.message.includes('409') && retry) {
+        return ghApi('data/accounting.json', 'GET').then(existing => {
+          const body = { message: msg, content };
+          if (existing && existing.sha) body.sha = existing.sha;
+          return ghApi('data/accounting.json', 'PUT', body);
+        });
+      }
+      throw e;
+    });
+  }
+  doPush(true).then(() => {
+    if (st) st.textContent = '上传成功 ✓ ' + new Date().toLocaleTimeString('zh-CN');
+    toast('已上传到云端');
+  }).catch(e => {
+    if (st) st.textContent = '上传失败: ' + e.message;
+    toast('上传失败');
+  });
+}
   return fetch(url, opts).then(r => {
     if (r.status === 404) return null;
     if (!r.ok) throw new Error('GitHub API: ' + r.status);
