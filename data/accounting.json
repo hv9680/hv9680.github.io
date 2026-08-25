@@ -1,60 +1,331 @@
 {
-    "Attributes":  [
-
-                   ],
-    "File":  null,
-    "IsFilter":  false,
-    "IsConfiguration":  false,
-    "Module":  null,
-    "StartPosition":  {
-                          "Content":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }",
-                          "Type":  19,
-                          "Start":  281,
-                          "Length":  85,
-                          "StartLine":  1,
-                          "StartColumn":  282,
-                          "EndLine":  1,
-                          "EndColumn":  367
-                      },
-    "DebuggerHidden":  false,
-    "Id":  "79802030-5e8e-4bb1-b57c-48d45592b9a9",
-    "Ast":  {
-                "Attributes":  [
-
-                               ],
-                "UsingStatements":  [
-
-                                    ],
-                "ParamBlock":  null,
-                "BeginBlock":  null,
-                "ProcessBlock":  null,
-                "EndBlock":  {
-                                 "Unnamed":  true,
-                                 "BlockKind":  130,
-                                 "Statements":  "records = @() categories = @() members = @() syncDate = (Get-Date -Format \"o\")",
-                                 "Traps":  null,
-                                 "Extent":  "records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\")",
-                                 "Parent":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }"
-                             },
-                "DynamicParamBlock":  null,
-                "ScriptRequirements":  null,
-                "Extent":  {
-                               "File":  null,
-                               "StartScriptPosition":  "System.Management.Automation.Language.InternalScriptPosition",
-                               "EndScriptPosition":  "System.Management.Automation.Language.InternalScriptPosition",
-                               "StartLineNumber":  1,
-                               "StartColumnNumber":  282,
-                               "EndLineNumber":  1,
-                               "EndColumnNumber":  367,
-                               "Text":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }",
-                               "StartOffset":  281,
-                               "EndOffset":  366
-                           },
-                "Parent":  {
-                               "ScriptBlock":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }",
-                               "StaticType":  "scriptblock",
-                               "Extent":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }",
-                               "Parent":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }"
-                           }
-            }
+  "records": [
+    {
+      "id": "r_1787621854766_0",
+      "date": "2026-08-01",
+      "catId": "salary",
+      "amount": 15000,
+      "note": "月工资",
+      "type": "income",
+      "memberId": "m1",
+      "createdAt": 1785549600000
+    },
+    {
+      "id": "r_1787621854766_1",
+      "date": "2026-08-02",
+      "catId": "grocery",
+      "amount": 168,
+      "note": "超市采买",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1785636060000
+    },
+    {
+      "id": "r_1787621854766_2",
+      "date": "2026-08-03",
+      "catId": "fruit",
+      "amount": 35.5,
+      "note": "苹果香蕉",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1785722520000
+    },
+    {
+      "id": "r_1787621854766_3",
+      "date": "2026-08-03",
+      "catId": "food",
+      "amount": 45,
+      "note": "午餐外卖",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1785722580000
+    },
+    {
+      "id": "r_1787621854766_4",
+      "date": "2026-08-05",
+      "catId": "electric",
+      "amount": 230,
+      "note": "本月电费",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1785895440000
+    },
+    {
+      "id": "r_1787621854766_5",
+      "date": "2026-08-05",
+      "catId": "water",
+      "amount": 68,
+      "note": "水费",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1785895500000
+    },
+    {
+      "id": "r_1787621854766_6",
+      "date": "2026-08-06",
+      "catId": "internet",
+      "amount": 129,
+      "note": "宽带费",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1785981960000
+    },
+    {
+      "id": "r_1787621854766_7",
+      "date": "2026-08-08",
+      "catId": "transport",
+      "amount": 25,
+      "note": "打车",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1786154820000
+    },
+    {
+      "id": "r_1787621854766_8",
+      "date": "2026-08-10",
+      "catId": "food",
+      "amount": 68,
+      "note": "家庭聚餐",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1786327680000
+    },
+    {
+      "id": "r_1787621854766_9",
+      "date": "2026-08-12",
+      "catId": "fruit",
+      "amount": 52,
+      "note": "葡萄西瓜",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1786500540000
+    },
+    {
+      "id": "r_1787621854766_10",
+      "date": "2026-08-14",
+      "catId": "entertain",
+      "amount": 120,
+      "note": "看电影",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1786673400000
+    },
+    {
+      "id": "r_1787621854766_11",
+      "date": "2026-08-15",
+      "catId": "grocery",
+      "amount": 89,
+      "note": "日用品补充",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1786759860000
+    },
+    {
+      "id": "r_1787621854766_12",
+      "date": "2026-08-16",
+      "catId": "gas",
+      "amount": 150,
+      "note": "燃气费",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1786846320000
+    },
+    {
+      "id": "r_1787621854766_13",
+      "date": "2026-08-18",
+      "catId": "snack",
+      "amount": 38,
+      "note": "零食大礼包",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1787019180000
+    },
+    {
+      "id": "r_1787621854766_14",
+      "date": "2026-08-20",
+      "catId": "food",
+      "amount": 55,
+      "note": "晚餐",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1787192040000
+    },
+    {
+      "id": "r_1787621854766_15",
+      "date": "2026-08-22",
+      "catId": "transport",
+      "amount": 15,
+      "note": "地铁",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1787364900000
+    },
+    {
+      "id": "r_1787621854766_16",
+      "date": "2026-08-24",
+      "catId": "fruit",
+      "amount": 42,
+      "note": "橙子猕猴桃",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1787537760000
+    }
+  ],
+  "categories": [
+    {
+      "id": "fruit",
+      "name": "水果",
+      "icon": "果",
+      "color": "#3b6fe0",
+      "type": "expense"
+    },
+    {
+      "id": "food",
+      "name": "餐饮",
+      "icon": "餐",
+      "color": "#d73a49",
+      "type": "expense"
+    },
+    {
+      "id": "grocery",
+      "name": "日用",
+      "icon": "用",
+      "color": "#2da44e",
+      "type": "expense"
+    },
+    {
+      "id": "transport",
+      "name": "交通",
+      "icon": "行",
+      "color": "#0969da",
+      "type": "expense"
+    },
+    {
+      "id": "electric",
+      "name": "电费",
+      "icon": "电",
+      "color": "#eab308",
+      "type": "expense"
+    },
+    {
+      "id": "water",
+      "name": "水费",
+      "icon": "水",
+      "color": "#3b82f6",
+      "type": "expense"
+    },
+    {
+      "id": "internet",
+      "name": "网费",
+      "icon": "网",
+      "color": "#8b5cf6",
+      "type": "expense"
+    },
+    {
+      "id": "gas",
+      "name": "燃气",
+      "icon": "气",
+      "color": "#f97316",
+      "type": "expense"
+    },
+    {
+      "id": "postage",
+      "name": "邮费",
+      "icon": "邮",
+      "color": "#a855f7",
+      "type": "expense"
+    },
+    {
+      "id": "medical",
+      "name": "医疗",
+      "icon": "医",
+      "color": "#ec4899",
+      "type": "expense"
+    },
+    {
+      "id": "entertain",
+      "name": "娱乐",
+      "icon": "乐",
+      "color": "#f59e0b",
+      "type": "expense"
+    },
+    {
+      "id": "edu",
+      "name": "教育",
+      "icon": "学",
+      "color": "#6366f1",
+      "type": "expense"
+    },
+    {
+      "id": "clothing",
+      "name": "服饰",
+      "icon": "衣",
+      "color": "#14b8a6",
+      "type": "expense"
+    },
+    {
+      "id": "snack",
+      "name": "零食",
+      "icon": "食",
+      "color": "#d946ef",
+      "type": "expense"
+    },
+    {
+      "id": "other_exp",
+      "name": "其他支出",
+      "icon": "他",
+      "color": "#64748b",
+      "type": "expense"
+    },
+    {
+      "id": "salary",
+      "name": "工资",
+      "icon": "薪",
+      "color": "#2da44e",
+      "type": "income"
+    },
+    {
+      "id": "bonus",
+      "name": "奖金",
+      "icon": "奖",
+      "color": "#22c55e",
+      "type": "income"
+    },
+    {
+      "id": "invest",
+      "name": "理财",
+      "icon": "财",
+      "color": "#14b8a6",
+      "type": "income"
+    },
+    {
+      "id": "refund",
+      "name": "退款",
+      "icon": "退",
+      "color": "#84cc16",
+      "type": "income"
+    },
+    {
+      "id": "other_inc",
+      "name": "其他收入",
+      "icon": "他",
+      "color": "#a3e635",
+      "type": "income"
+    }
+  ],
+  "members": [
+    {
+      "id": "m1",
+      "name": "爸爸",
+      "avatar": "A",
+      "color": "#3b6fe0"
+    },
+    {
+      "id": "m2",
+      "name": "妈妈",
+      "avatar": "B",
+      "color": "#d73a49"
+    }
+  ],
+  "syncDate": "2026-08-25T01:51:44.009Z"
 }
