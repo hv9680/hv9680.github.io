@@ -313,6 +313,13 @@
       "type": "income"
     }
   ],
-  "members": [],
-  "syncTime": "2026-08-25T03:24:31.634Z"
+  "members": [
+    {
+      "id": "m_1787628279762",
+      "name": "皓宝",
+      "avatar": "😊",
+      "color": "#ff8c42"
+    }
+  ],
+  "syncTime": "2026-08-25T03:24:44.963Z"
 }
