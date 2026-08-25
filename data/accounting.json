@@ -169,146 +169,226 @@
       "type": "expense",
       "memberId": "m1",
       "createdAt": 1787537760000
+    },
+    {
+      "id": "r_1787628390718_0",
+      "date": "2026-08-01",
+      "catId": "salary",
+      "amount": 15000,
+      "note": "月工资",
+      "type": "income",
+      "memberId": "m1",
+      "createdAt": 1785549600000
+    },
+    {
+      "id": "r_1787628390718_1",
+      "date": "2026-08-02",
+      "catId": "grocery",
+      "amount": 168,
+      "note": "超市采买",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1785636060000
+    },
+    {
+      "id": "r_1787628390718_2",
+      "date": "2026-08-03",
+      "catId": "fruit",
+      "amount": 35.5,
+      "note": "苹果香蕉",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1785722520000
+    },
+    {
+      "id": "r_1787628390718_3",
+      "date": "2026-08-03",
+      "catId": "food",
+      "amount": 45,
+      "note": "午餐外卖",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1785722580000
+    },
+    {
+      "id": "r_1787628390718_4",
+      "date": "2026-08-05",
+      "catId": "electric",
+      "amount": 230,
+      "note": "本月电费",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1785895440000
+    },
+    {
+      "id": "r_1787628390718_5",
+      "date": "2026-08-05",
+      "catId": "water",
+      "amount": 68,
+      "note": "水费",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1785895500000
+    },
+    {
+      "id": "r_1787628390718_6",
+      "date": "2026-08-06",
+      "catId": "internet",
+      "amount": 129,
+      "note": "宽带费",
+      "type": "expense",
+      "memberId": "m1",
+      "createdAt": 1785981960000
+    },
+    {
+      "id": "r_1787628390718_7",
+      "date": "2026-08-08",
+      "catId": "transport",
+      "amount": 25,
+      "note": "打车",
+      "type": "expense",
+      "memberId": "m2",
+      "createdAt": 1786154820000
     }
   ],
   "categories": [
     {
       "id": "fruit",
       "name": "水果",
-      "icon": "果",
-      "color": "#3b6fe0",
+      "icon": "🍎",
+      "color": "#ff8c42",
       "type": "expense"
     },
     {
       "id": "food",
       "name": "餐饮",
-      "icon": "餐",
-      "color": "#d73a49",
+      "icon": "🍜",
+      "color": "#ef4444",
       "type": "expense"
     },
     {
       "id": "grocery",
       "name": "日用",
-      "icon": "用",
-      "color": "#2da44e",
+      "icon": "🧴",
+      "color": "#10b981",
       "type": "expense"
     },
     {
       "id": "transport",
       "name": "交通",
-      "icon": "行",
-      "color": "#0969da",
+      "icon": "🚌",
+      "color": "#06b6d4",
       "type": "expense"
     },
     {
       "id": "electric",
       "name": "电费",
-      "icon": "电",
+      "icon": "⚡",
       "color": "#eab308",
       "type": "expense"
     },
     {
       "id": "water",
       "name": "水费",
-      "icon": "水",
+      "icon": "💧",
       "color": "#3b82f6",
       "type": "expense"
     },
     {
       "id": "internet",
       "name": "网费",
-      "icon": "网",
+      "icon": "🌐",
       "color": "#8b5cf6",
       "type": "expense"
     },
     {
       "id": "gas",
       "name": "燃气",
-      "icon": "气",
+      "icon": "🔥",
       "color": "#f97316",
       "type": "expense"
     },
     {
       "id": "postage",
       "name": "邮费",
-      "icon": "邮",
+      "icon": "📦",
       "color": "#a855f7",
       "type": "expense"
     },
     {
       "id": "medical",
       "name": "医疗",
-      "icon": "医",
+      "icon": "💊",
       "color": "#ec4899",
       "type": "expense"
     },
     {
       "id": "entertain",
       "name": "娱乐",
-      "icon": "乐",
+      "icon": "🎬",
       "color": "#f59e0b",
       "type": "expense"
     },
     {
       "id": "edu",
       "name": "教育",
-      "icon": "学",
+      "icon": "📚",
       "color": "#6366f1",
       "type": "expense"
     },
     {
       "id": "clothing",
       "name": "服饰",
-      "icon": "衣",
+      "icon": "👕",
       "color": "#14b8a6",
       "type": "expense"
     },
     {
       "id": "snack",
       "name": "零食",
-      "icon": "食",
+      "icon": "🍪",
       "color": "#d946ef",
       "type": "expense"
     },
     {
       "id": "other_exp",
       "name": "其他支出",
-      "icon": "他",
+      "icon": "💰",
       "color": "#64748b",
       "type": "expense"
     },
     {
       "id": "salary",
       "name": "工资",
-      "icon": "薪",
-      "color": "#2da44e",
+      "icon": "💼",
+      "color": "#10b981",
       "type": "income"
     },
     {
       "id": "bonus",
       "name": "奖金",
-      "icon": "奖",
+      "icon": "🎁",
       "color": "#22c55e",
       "type": "income"
     },
     {
       "id": "invest",
       "name": "理财",
-      "icon": "财",
+      "icon": "📈",
       "color": "#14b8a6",
       "type": "income"
     },
     {
       "id": "refund",
       "name": "退款",
-      "icon": "退",
+      "icon": "💳",
       "color": "#84cc16",
       "type": "income"
     },
     {
       "id": "other_inc",
       "name": "其他收入",
-      "icon": "他",
+      "icon": "🪙",
       "color": "#a3e635",
       "type": "income"
     }
@@ -327,5 +407,5 @@
       "color": "#4d96ff"
     }
   ],
-  "syncTime": "2026-08-25T03:24:50.903Z"
+  "syncTime": "2026-08-25T03:27:53.578Z"
 }
