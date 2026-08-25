@@ -307,6 +307,7 @@ button { cursor: pointer; border: none; }
       <button class="h-btn" onclick="exportExcel()">导出表格</button>
       <button class="h-btn" onclick="exportJSON()">备份</button>
       <button class="h-btn" onclick="document.getElementById('importFile').click()">恢复</button>
+      <button class="h-btn" id="cloudSyncBtn" onclick="openSyncModal()">云同步</button>
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
     </div>
   </div>
@@ -439,6 +440,44 @@ button { cursor: pointer; border: none; }
       <div class="member-list" id="memberManageList"></div>
     </div>
     <div class="modal-foot"><button class="btn btn-cancel" onclick="closeMemberModal()">关闭</button></div>
+  </div>
+</div>
+
+<!-- Sync Modal -->
+<div class="modal-bg" id="syncModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>云端同步设置</h3>
+      <button class="modal-close" onclick="closeSyncModal()">x</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>GitHub 用户名</label>
+        <input type="text" id="syncUser" placeholder="如 hv9680">
+      </div>
+      <div class="field">
+        <label>仓库名</label>
+        <input type="text" id="syncRepo" placeholder="如 hv9680.github.io">
+      </div>
+      <div class="field">
+        <label>Personal Access Token</label>
+        <input type="password" id="syncToken" placeholder="ghp_ 开头" style="font-family:monospace;font-size:12px">
+        <div style="font-size:12px;color:var(--text3);margin-top:4px">仅需 contents 读写权限</div>
+      </div>
+      <div class="field">
+        <label style="display:flex;align-items:center;gap:6px">
+          <input type="checkbox" id="syncAuto" style="width:auto">
+          自动同步（每次记账后自动上传）
+        </label>
+      </div>
+      <div id="syncStatus" style="font-size:13px;color:var(--text3);margin-bottom:12px"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-cancel" onclick="closeSyncModal()">关闭</button>
+      <button class="btn btn-cancel" onclick="pullFromCloud()">从云端拉取</button>
+      <button class="btn btn-save" onclick="pushToCloud()">上传到云端</button>
+      <button class="btn btn-save" onclick="saveSyncConfig()" style="background:var(--green)">保存设置</button>
+    </div>
   </div>
 </div>
 
@@ -1064,11 +1103,141 @@ function toast(msg) {
   t._timer = setTimeout(() => t.classList.remove('show'), 2000);
 }
 
+// ============================================================
+//  GitHub API 云端同步
+// ============================================================
+const SYNC_KEY = 'github_sync_config';
+let syncConfig = null;
+let syncTimer = null;
+let lastSyncSHA = null;
+
+function loadSyncConfig() {
+  const saved = localStorage.getItem(SYNC_KEY);
+  if (saved) {
+    syncConfig = JSON.parse(saved);
+    updateSyncBtn();
+  }
+}
+function updateSyncBtn() {
+  const btn = document.getElementById('cloudSyncBtn');
+  if (syncConfig && syncConfig.token) {
+    btn.style.color = 'var(--green)';
+    btn.style.borderColor = 'var(--green)';
+  }
+}
+function saveSyncConfig() {
+  const user = document.getElementById('syncUser').value.trim();
+  const repo = document.getElementById('syncRepo').value.trim();
+  const token = document.getElementById('syncToken').value.trim();
+  const auto = document.getElementById('syncAuto').checked;
+  if (!user || !repo || !token) { toast('请填写完整'); return; }
+  syncConfig = { user, repo, token, auto };
+  localStorage.setItem(SYNC_KEY, JSON.stringify(syncConfig));
+  updateSyncBtn();
+  toast('同步设置已保存');
+  if (auto) scheduleAutoSync();
+}
+function openSyncModal() {
+  if (syncConfig) {
+    document.getElementById('syncUser').value = syncConfig.user || '';
+    document.getElementById('syncRepo').value = syncConfig.repo || '';
+    document.getElementById('syncToken').value = syncConfig.token || '';
+    document.getElementById('syncAuto').checked = syncConfig.auto || false;
+  }
+  document.getElementById('syncStatus').textContent = '';
+  document.getElementById('syncModal').classList.add('show');
+}
+function closeSyncModal() { document.getElementById('syncModal').classList.remove('show'); }
+
+function ghApi(path, method, body) {
+  const url = `https://api.github.com/repos/${syncConfig.user}/${syncConfig.repo}/contents/${path}`;
+  const headers = { 'Authorization': `token ${syncConfig.token}`, 'Accept': 'application/vnd.github+json' };
+  const opts = { method, headers };
+  if (body) {
+    opts.body = JSON.stringify(body);
+    headers['Content-Type'] = 'application/json';
+  }
+  return fetch(url, opts).then(r => {
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error('GitHub API: ' + r.status);
+    return r.json();
+  });
+}
+
+function pushToCloud() {
+  if (!syncConfig) { toast('请先保存设置'); return; }
+  document.getElementById('syncStatus').textContent = '正在上传...';
+  const data = { records, categories, members, syncDate: new Date().toISOString() };
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+  ghApi('data/accounting.json', 'GET').then(existing => {
+    const body = { message: '记账数据同步 ' + new Date().toLocaleString('zh-CN'), content };
+    if (existing && existing.sha) body.sha = existing.sha;
+    return ghApi('data/accounting.json', 'PUT', body);
+  }).then(() => {
+    document.getElementById('syncStatus').textContent = '上传成功 ✓ ' + new Date().toLocaleTimeString('zh-CN');
+    toast('已上传到云端');
+  }).catch(e => {
+    document.getElementById('syncStatus').textContent = '上传失败: ' + e.message;
+    toast('上传失败');
+  });
+}
+
+function pullFromCloud() {
+  if (!syncConfig) { toast('请先保存设置'); return; }
+  document.getElementById('syncStatus').textContent = '正在拉取...';
+  ghApi('data/accounting.json', 'GET').then(file => {
+    if (!file) { document.getElementById('syncStatus').textContent = '云端暂无数据'; return; }
+    const content = decodeURIComponent(escape(atob(file.content)));
+    const cloud = JSON.parse(content);
+    // 合并：按记录 ID 去重，云端和本地都保留
+    const localIds = new Set(records.map(r => r.id));
+    const cloudRecs = (cloud.records || []).filter(r => !localIds.has(r.id));
+    const merged = records.concat(cloudRecs);
+    // 如果云端有更新的分类或成员，也合并
+    const localCatIds = new Set(categories.map(c => c.id));
+    (cloud.categories || []).forEach(c => { if (!localCatIds.has(c.id)) categories.push(c); });
+    const localMemIds = new Set(members.map(m => m.id));
+    (cloud.members || []).forEach(m => { if (!localMemIds.has(m.id)) members.push(m); });
+    records = merged;
+    saveRecords(); saveCats(); saveMembers();
+    renderAll();
+    document.getElementById('syncStatus').textContent = '拉取成功 ✓ 新增 ' + cloudRecs.length + ' 条记录';
+    toast('已从云端拉取');
+  }).catch(e => {
+    document.getElementById('syncStatus').textContent = '拉取失败: ' + e.message;
+    toast('拉取失败');
+  });
+}
+
+function scheduleAutoSync() {
+  if (!syncConfig || !syncConfig.auto) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => { pushToCloud(); }, 5000);
+}
+
+// 包装 saveRecords，如果自动同步则触发
+const _saveRecordsOrig = saveRecords;
+saveRecords = function() {
+  _saveRecordsOrig();
+  if (syncConfig && syncConfig.auto) scheduleAutoSync();
+};
+const _saveCatsOrig = saveCats;
+saveCats = function() {
+  _saveCatsOrig();
+  if (syncConfig && syncConfig.auto) scheduleAutoSync();
+};
+const _saveMembersOrig = saveMembers;
+saveMembers = function() {
+  _saveMembersOrig();
+  if (syncConfig && syncConfig.auto) scheduleAutoSync();
+};
+
 function renderAll() {
   renderMemberBar(); renderSummary(); renderPersonTable();
   renderFilter(); renderRecords(); renderCharts();
 }
 
+loadSyncConfig();
 init();
 </script>
 </body>
