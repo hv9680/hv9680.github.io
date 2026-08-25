@@ -1,0 +1,60 @@
+{
+    "Attributes":  [
+
+                   ],
+    "File":  null,
+    "IsFilter":  false,
+    "IsConfiguration":  false,
+    "Module":  null,
+    "StartPosition":  {
+                          "Content":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }",
+                          "Type":  19,
+                          "Start":  281,
+                          "Length":  85,
+                          "StartLine":  1,
+                          "StartColumn":  282,
+                          "EndLine":  1,
+                          "EndColumn":  367
+                      },
+    "DebuggerHidden":  false,
+    "Id":  "79802030-5e8e-4bb1-b57c-48d45592b9a9",
+    "Ast":  {
+                "Attributes":  [
+
+                               ],
+                "UsingStatements":  [
+
+                                    ],
+                "ParamBlock":  null,
+                "BeginBlock":  null,
+                "ProcessBlock":  null,
+                "EndBlock":  {
+                                 "Unnamed":  true,
+                                 "BlockKind":  130,
+                                 "Statements":  "records = @() categories = @() members = @() syncDate = (Get-Date -Format \"o\")",
+                                 "Traps":  null,
+                                 "Extent":  "records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\")",
+                                 "Parent":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }"
+                             },
+                "DynamicParamBlock":  null,
+                "ScriptRequirements":  null,
+                "Extent":  {
+                               "File":  null,
+                               "StartScriptPosition":  "System.Management.Automation.Language.InternalScriptPosition",
+                               "EndScriptPosition":  "System.Management.Automation.Language.InternalScriptPosition",
+                               "StartLineNumber":  1,
+                               "StartColumnNumber":  282,
+                               "EndLineNumber":  1,
+                               "EndColumnNumber":  367,
+                               "Text":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }",
+                               "StartOffset":  281,
+                               "EndOffset":  366
+                           },
+                "Parent":  {
+                               "ScriptBlock":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }",
+                               "StaticType":  "scriptblock",
+                               "Extent":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }",
+                               "Parent":  "{ records = @(); categories = @(); members = @(); syncDate = (Get-Date -Format \"o\") }"
+                           }
+            }
+}
