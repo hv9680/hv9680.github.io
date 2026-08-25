@@ -313,19 +313,6 @@
       "type": "income"
     }
   ],
-  "members": [
-    {
-      "id": "m1",
-      "name": "爸爸",
-      "avatar": "A",
-      "color": "#3b6fe0"
-    },
-    {
-      "id": "m2",
-      "name": "妈妈",
-      "avatar": "B",
-      "color": "#d73a49"
-    }
-  ],
-  "syncTime": "2026-08-25T03:24:14.088Z"
+  "members": [],
+  "syncTime": "2026-08-25T03:24:31.634Z"
 }
